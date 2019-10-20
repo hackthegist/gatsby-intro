@@ -1,9 +1,9 @@
 import { graphql, useStaticQuery } from 'gatsby';
 
-const usePosts = () => {
+const useDocs = () => {
   const data = useStaticQuery(graphql`
     query {
-      allFile(filter: { sourceInstanceName: { eq: "posts" } }) {
+      allFile(filter: { sourceInstanceName: { eq: "docs" } }) {
         nodes {
           childMdx {
             frontmatter {
@@ -23,4 +23,4 @@ const usePosts = () => {
   }));
 };
 
-export default usePosts;
+export default useDocs;
