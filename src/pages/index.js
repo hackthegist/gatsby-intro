@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from '../components/layout';
 import usePosts from '../hooks/use-posts';
 import PostPreview from '../components/post-preview';
-import ReadLink from '../components/read-link';
 
 export default () => {
   const posts = usePosts();
@@ -10,9 +9,6 @@ export default () => {
     <Layout>
       <h1>Home</h1>
       <p>Hello Minnesota!</p>
-      <ReadLink to="/docs/">Read my Docs &rarr;</ReadLink>
-      <br />
-      <ReadLink to="/about/">Learn about me &rarr;</ReadLink>
 
       <h2>Read my blog</h2>
       {posts.map(post => (

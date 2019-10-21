@@ -1,28 +1,76 @@
+const path = require('path');
+
 exports.createPages = async ({ actions, graphql, reporter }) => {
+  const { createPage } = actions;
+
+  const blogPostTemplate = path.resolve('src/templates/post.js');
+  const docsTemplate = path.resolve('src/templates/docs.js');
+  const tagTemplate = path.resolve('src/templates/tags.js');
+
   const result = await graphql(`
-    query {
-      allMdx {
+    {
+      postsQuery: allFile(filter: { sourceInstanceName: { eq: "posts" } }) {
         nodes {
-          frontmatter {
-            slug
+          childMdx {
+            frontmatter {
+              title
+              slug
+            }
           }
+        }
+      }
+      docsQuery: allFile(filter: { sourceInstanceName: { eq: "docs" } }) {
+        nodes {
+          childMdx {
+            frontmatter {
+              title
+              slug
+            }
+          }
+        }
+      }
+      tagsGroup: allFile(filter: { sourceInstanceName: { eq: "posts" } }) {
+        group(field: childMdx___frontmatter___tags) {
+          fieldValue
+          totalCount
         }
       }
     }
   `);
-
   if (result.errors) {
-    reporter.panic('failed to create posts', result.errors);
+    reporter.panic('failed to create contents', result.errors);
   }
 
-  const posts = result.data.allMdx.nodes;
+  const posts = result.data.postsQuery.nodes;
+  const docs = result.data.docsQuery.nodes;
+  const tags = result.data.tagsGroup.group;
 
-  posts.forEach(post => {
-    actions.createPage({
-      path: post.frontmatter.slug,
-      component: require.resolve('./src/templates/post.js'),
+  posts.forEach(node => {
+    createPage({
+      path: node.childMdx.frontmatter.slug,
+      component: blogPostTemplate,
       context: {
-        slug: post.frontmatter.slug, // pageContext.slug in templates.js & graphQL variable $slug
+        slug: node.childMdx.frontmatter.slug, // pageContext.slug in templates.js & graphQL variable $slug
+      },
+    });
+  });
+
+  docs.forEach(node => {
+    createPage({
+      path: node.childMdx.frontmatter.slug,
+      component: docsTemplate,
+      context: {
+        slug: node.childMdx.frontmatter.slug, // pageContext.slug in templates.js & graphQL variable $slug
+      },
+    });
+  });
+
+  tags.forEach(tag => {
+    createPage({
+      path: `/tags/${tag.fieldValue}/`,
+      component: tagTemplate,
+      context: {
+        tag: tag.fieldValue,
       },
     });
   });
