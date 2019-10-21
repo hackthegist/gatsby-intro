@@ -6,8 +6,11 @@ const usePosts = () => {
       allFile(filter: { sourceInstanceName: { eq: "posts" } }) {
         nodes {
           childMdx {
+            excerpt
             frontmatter {
               title
+              author
+              slug
             }
           }
         }
@@ -15,11 +18,11 @@ const usePosts = () => {
     }
   `);
 
-  return data.allFile.nodes.map(nodes => ({
-    title: nodes.childMdx.frontmatter.title,
-    author: nodes.childMdx.frontmatter.author,
-    slug: nodes.childMdx.frontmatter.slug,
-    excerpt: nodes.childMdx.excerpt,
+  return data.allFile.nodes.map(node => ({
+    title: node.childMdx.frontmatter.title,
+    author: node.childMdx.frontmatter.author,
+    slug: node.childMdx.frontmatter.slug,
+    excerpt: node.childMdx.excerpt,
   }));
 };
 

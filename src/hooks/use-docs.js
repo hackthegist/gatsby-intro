@@ -6,8 +6,11 @@ const useDocs = () => {
       allFile(filter: { sourceInstanceName: { eq: "docs" } }) {
         nodes {
           childMdx {
+            excerpt
             frontmatter {
               title
+              author
+              slug
             }
           }
         }
