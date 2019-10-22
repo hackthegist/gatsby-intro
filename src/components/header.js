@@ -32,14 +32,14 @@ const Header = () => (
     `}
   >
     <NavLink to="/" fontWeight="bold">
-      FEM Workshop
+      HackTheGist
     </NavLink>
     <nav
       css={css`
         margin-top: 0;
       `}
     >
-      <NavLink to="/" activeClassName="current-page">
+      <NavLink to="/posts/" activeClassName="current-page">
         blog
       </NavLink>
       <NavLink to="/docs/" activeClassName="current-page">

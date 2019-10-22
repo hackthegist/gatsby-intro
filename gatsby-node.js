@@ -47,7 +47,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   posts.forEach(node => {
     createPage({
-      path: node.childMdx.frontmatter.slug,
+      path: `/posts/${node.childMdx.frontmatter.slug}`,
       component: blogPostTemplate,
       context: {
         slug: node.childMdx.frontmatter.slug, // pageContext.slug in templates.js & graphQL variable $slug

@@ -11,6 +11,7 @@ const usePosts = () => {
               title
               author
               slug
+              tags
             }
           }
         }
@@ -23,6 +24,7 @@ const usePosts = () => {
     author: node.childMdx.frontmatter.author,
     slug: node.childMdx.frontmatter.slug,
     excerpt: node.childMdx.excerpt,
+    tags: node.childMdx.frontmatter.tags
   }));
 };
 

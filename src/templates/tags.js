@@ -4,33 +4,41 @@ import PropTypes from 'prop-types';
 // Components
 import { Link, graphql } from 'gatsby';
 import Layout from '../components/layout';
+import { Row, Col } from 'antd';
 
 const Tags = ({ pageContext, data }) => {
   const { tag } = pageContext;
   const { edges, totalCount } = data.allMdx;
   const tagHeader = `${totalCount} post${
     totalCount === 1 ? '' : 's'
-  } tagged with "${tag}"`;
+    } tagged with "${tag}"`;
 
   return (
     <Layout>
-      <h1>{tagHeader}</h1>
-      <ul>
-        {edges.map(({ node }) => {
-          const { title, slug } = node.frontmatter;
-          return (
-            <li key={slug}>
-              <Link to={slug}>{title}</Link>
-            </li>
-          );
-        })}
-      </ul>
-      {/*
+      <Row>
+        <Col span={8}>
+          <Tags />
+        </Col>
+        <Col span={16}>
+          <h1>{tagHeader}</h1>
+          <ul>
+            {edges.map(({ node }) => {
+              const { title, slug } = node.frontmatter;
+              return (
+                <li key={slug}>
+                  <Link to={slug}>{title}</Link>
+                </li>
+              );
+            })}
+          </ul>
+          {/*
               This links to a page that does not yet exist.
               You'll come back to it!
             */}
-      <Link to="/tags">All tags</Link>
-    </Layout>
+          <Link to="/tags">All tags</Link>
+        </Col>
+      </Row>
+    </Layout >
   );
 };
 

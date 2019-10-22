@@ -15,9 +15,9 @@ export default () => {
       <ReadLink to="/about/">Learn about me &rarr;</ReadLink>
 
       <h2>Read my docs</h2>
-      {docs.map(doc => (
+      {/* {docs.map(doc => (
         <PostPreview key={doc.slug} post={doc} />
-      ))}
+      ))} */}
     </Layout>
   );
 };

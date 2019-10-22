@@ -2,6 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import { Link } from 'gatsby';
 import ReadLink from '../components/read-link';
+import { Tag } from 'antd'
 
 const PostPreview = ({ post }) => (
   <article
@@ -16,10 +17,16 @@ const PostPreview = ({ post }) => (
     `}
   >
     <h3>
-      <Link to={post.slug}>{post.title}</Link>
+      <Link to={`posts/${post.slug}`}>{post.title}</Link>
     </h3>
     <p>{post.excerpt}</p>
-    <ReadLink to={post.slug}>read this post &rarr;</ReadLink>
+    <ReadLink to={`posts/${post.slug}`}>read this post &rarr;</ReadLink>
+    <div>
+      {post.tags.map(tag => (
+        <Tag color="#f50">{tag}</Tag>
+      ))}.
+    </div>
+
   </article>
 );
 

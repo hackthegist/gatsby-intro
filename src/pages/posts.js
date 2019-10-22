@@ -10,14 +10,12 @@ export default () => {
   const posts = usePosts();
   return (
     <Layout>
-      <h1>Home</h1>
-      <p>Hello Minnesota!</p>
       <Row>
         <Col span={8}>
           <Tags />
         </Col>
         <Col span={16}>
-          <h2>Read my blog</h2>
+          <h2>All posts</h2>
           {posts.map(post => (
             <PostPreview key={post.slug} post={post} />
           ))}
