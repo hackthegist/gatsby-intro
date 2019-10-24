@@ -1,4 +1,4 @@
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby'
 
 const useDocs = () => {
   const data = useStaticQuery(graphql`
@@ -16,14 +16,14 @@ const useDocs = () => {
         }
       }
     }
-  `);
+  `)
 
   return data.allFile.nodes.map(nodes => ({
     title: nodes.childMdx.frontmatter.title,
     author: nodes.childMdx.frontmatter.author,
     slug: nodes.childMdx.frontmatter.slug,
     excerpt: nodes.childMdx.excerpt,
-  }));
-};
+  }))
+}
 
-export default useDocs;
+export default useDocs

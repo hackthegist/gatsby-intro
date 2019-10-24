@@ -1,46 +1,40 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 // Components
-import { Link, graphql } from 'gatsby';
-import Layout from '../components/layout';
-import { Row, Col } from 'antd';
+import { Link, graphql } from 'gatsby'
+import Layout from '../components/layout'
 
 const Tags = ({ pageContext, data }) => {
-  const { tag } = pageContext;
-  const { edges, totalCount } = data.allMdx;
+  const { tag } = pageContext
+  const { edges, totalCount } = data.allMdx
   const tagHeader = `${totalCount} post${
     totalCount === 1 ? '' : 's'
-    } tagged with "${tag}"`;
+  } tagged with "${tag}"`
 
   return (
     <Layout>
-      <Row>
-        <Col span={8}>
-          <Tags />
-        </Col>
-        <Col span={16}>
-          <h1>{tagHeader}</h1>
-          <ul>
-            {edges.map(({ node }) => {
-              const { title, slug } = node.frontmatter;
-              return (
-                <li key={slug}>
-                  <Link to={slug}>{title}</Link>
-                </li>
-              );
-            })}
-          </ul>
-          {/*
+      <Tags />
+
+      <h1>{tagHeader}</h1>
+      <ul>
+        {edges.map(({ node }) => {
+          const { title, slug } = node.frontmatter
+          return (
+            <li key={slug}>
+              <Link to={slug}>{title}</Link>
+            </li>
+          )
+        })}
+      </ul>
+      {/*
               This links to a page that does not yet exist.
               You'll come back to it!
             */}
-          <Link to="/tags">All tags</Link>
-        </Col>
-      </Row>
-    </Layout >
-  );
-};
+      <Link to="/tags">All tags</Link>
+    </Layout>
+  )
+}
 
 Tags.propTypes = {
   pageContext: PropTypes.shape({
@@ -61,9 +55,9 @@ Tags.propTypes = {
       ),
     }),
   }),
-};
+}
 
-export default Tags;
+export default Tags
 
 export const pageQuery = graphql`
   query TagQuery($tag: String) {
@@ -83,4 +77,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`;
+`
